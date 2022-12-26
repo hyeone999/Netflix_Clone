@@ -7,7 +7,6 @@ import styled from "styled-components";
 export default function Banner() {
   const [movie, setMovie] = useState([]);
   const [isClicked, setIsClicked] = useState(false);
-  console.log(movie);
 
   // fetchData는 따로 호출이 되지 않는 함수이다.
   // 그렇기 때문에 useEffect를 사용해서 페이지가 로딩 될 때마다 fetchData() 함수를 실행 시켜준다.

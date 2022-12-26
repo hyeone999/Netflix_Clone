@@ -2,10 +2,12 @@ import axios from "../API/axios";
 import React, { useState, useEffect } from "react";
 import requests from "../API/requests";
 import "../CSS/Banner.css";
+import styled from "styled-components";
 
 export default function Banner() {
   const [movie, setMovie] = useState([]);
   const [isClicked, setIsClicked] = useState(false);
+  console.log(movie);
 
   // fetchData는 따로 호출이 되지 않는 함수이다.
   // 그렇기 때문에 useEffect를 사용해서 페이지가 로딩 될 때마다 fetchData() 함수를 실행 시켜준다.
@@ -25,11 +27,12 @@ export default function Banner() {
 
     // 특정 영화의 더 상세한 정보를 가져오기(비디오 정보도 포함)
     const { data: movieDetail } = await axios.get(`movie/${movieId}`, {
-      params: { append_to_reponse: "videos" },
+      params: { append_to_response: "videos" },
     });
     setMovie(movieDetail);
   };
 
+  // 글자수 ... function
   const truncate = (str, n) => {
     return str?.length > n ? str.substr(0, n - 1) + "..." : str;
   };
@@ -63,6 +66,50 @@ export default function Banner() {
       </header>
     );
   } else {
-    return <div>Clicked</div>;
+    return (
+      <Container>
+        <HomeContainer></HomeContainer>
+        <Iframe
+          width="640"
+          height="360"
+          src={`https://www.youtube.com/embed/${movie.videos.results[0].key}?controls=0&autoplay=1&loop=1&mute=1&playlist=${movie.videos.results[0].key}`}
+          title="YouTube video player"
+          frameborder="0"
+          allow="autoplay; fullscreen"
+          allowfullscreen
+        ></Iframe>
+      </Container>
+    );
   }
 }
+
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%
+  height: 100vh
+`;
+
+const HomeContainer = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+
+const Iframe = styled.iframe`
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  opacity: 0.65;
+  border: none;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%
+    height: 100%;
+  }
+`;

@@ -1,5 +1,6 @@
 import requests from "./API/requests";
 import Banner from "./Components/Banner";
+import Footer from "./Components/Footer";
 import Nav from "./Components/Nav";
 import Row from "./Components/Row";
 
@@ -26,6 +27,7 @@ function App() {
         id="CM"
         fetchURL={requests.fetchComedyMovies}
       />
+      <Footer />
     </div>
   );
 }

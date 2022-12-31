@@ -1,33 +1,32 @@
-import requests from "./API/requests";
-import Banner from "./Components/Banner";
+import { Outlet, Route, Routes } from "react-router-dom";
 import Footer from "./Components/Footer";
 import Nav from "./Components/Nav";
-import Row from "./Components/Row";
+import DetailPage from "./Pages/DetailPage";
+import MainPage from "./Pages/MainPage";
+import SearchPage from "./Pages/SearchPage";
+
+const Layout = () => {
+  return (
+    <div>
+      <Nav />
+
+      <Outlet />
+
+      <Footer />
+    </div>
+  );
+};
 
 function App() {
   return (
     <div style={{ background: "#111" }}>
-      <Nav />
-      <Banner />
-      <Row
-        title="NETFLIX ORIGINALS"
-        id="NO"
-        fetchURL={requests.fetchNetflixOriginals}
-        isLargeRow
-      />
-      <Row title="Trending Now" id="TN" fetchURL={requests.fetchTrending} />
-      <Row title="Top Rated" id="TR" fetchURL={requests.fetchTopRated} />
-      <Row
-        title="Action Movies"
-        id="AM"
-        fetchURL={requests.fetchActionMovies}
-      />
-      <Row
-        title="Comedy Movies"
-        id="CM"
-        fetchURL={requests.fetchComedyMovies}
-      />
-      <Footer />
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<MainPage />} />
+          <Route path=":movieId" element={<DetailPage />} />
+          <Route path="search" element={<SearchPage />} />
+        </Route>
+      </Routes>
     </div>
   );
 }

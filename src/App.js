@@ -22,7 +22,7 @@ function App() {
     <div style={{ background: "#111" }}>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<MainPage />} />
+          <Route path="main" index element={<MainPage />} />
           <Route path=":movieId" element={<DetailPage />} />
           <Route path="search" element={<SearchPage />} />
         </Route>

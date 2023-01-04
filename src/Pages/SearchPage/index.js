@@ -17,7 +17,7 @@ export default function SearchPage() {
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
   console.log("useLocation()", useLocation());
-  console.log("sdebouncedSearchTerm", debouncedSearchTerm);
+  console.log("debouncedSearchTerm", debouncedSearchTerm);
 
   useEffect(() => {
     if (debouncedSearchTerm) {
